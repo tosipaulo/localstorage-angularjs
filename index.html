@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body data-ng-controller="indexController as main">
+
+	
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-6">
+				<form name="form">
+					<div class="form-group">
+						<label for="nome">Nome</label>
+						<input type="text" class="form-control" placeholder="Digite seu nome" ng-model="main.pessoa.nome" required>
+					</div>
+
+					<div class="form-group">
+						<label for="nome">Sobrenome</label>
+						<input type="text" class="form-control" placeholder="Digite seu sobrenome" ng-model="main.pessoa.sobrenome">
+					</div>
+					<button ng-click="main.saveData(main.pessoa)" class="btn btn-success" ng-disabled="form.$invalid">Adicionar</button>
+					<button type="submit" class="btn btn-primary" ng-click="main.atualizar(main.pessoa)">Atualizar</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="row div col-md-6">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Sobrenome</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="pessoa in main.nomes">
+						<td>{{pessoa.nome}}</td>
+						<td>{{pessoa.sobrenome}}</td>
+						<td><button class="btn btn-primary" ng-click="main.editar(pessoa)">Editar</button></td>
+						<td><button class="btn btn-danger" ng-click="main.deletar(pessoa.id)">Excluir</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+	<script src="js/app_module.js"></script>
+	<script src="js/app_controller.js"></script>
+	<script src="js/app_factory.js"></script>
+</body>
+</html>
