@@ -8,7 +8,7 @@
 	function indexController($scope, $localStorage, listLocalStorage) {
 		var vm = this;
 		vm.nomes = [];
-		vm.id = vm.nomes.id || -1;
+		vm.id = vm.nomes.length || -1;
 
 	
 		/*vm.saveData = function(data) {
