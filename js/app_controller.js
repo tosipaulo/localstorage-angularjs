@@ -5,10 +5,10 @@
 	.controller('indexController', indexController);
 
 
-	function indexController($scope, $localStorage, listLocalStorage) {
+	function indexController($scope, $localStorage, listLocalStorage, pouchDB) {
 		var vm = this;
 		vm.nomes = [];
-		vm.id = vm.nomes.length || -1;
+		vm._id = vm.nomes.length || -1;
 
 	
 		/*vm.saveData = function(data) {
@@ -22,11 +22,9 @@
 			}
 
 		}*/
-
-
-
 		vm.saveData = function(data) {
-			vm.id++;
+
+			/*vm.id++;
 			data.id = vm.id;
 			if(listLocalStorage.get()){
 				vm.nomes = listLocalStorage.get();
@@ -36,15 +34,26 @@
 				vm.nomes.push(angular.copy(data));	
 			}
 
-			listLocalStorage.post(vm.nomes);
+			listLocalStorage.post(vm.nomes);*/
+
+			pouchDB.save(data);
 			$scope.main.pessoa = '';
 			
 
 		}
 
 		vm.loadData = function() {
-
-			vm.nomes = listLocalStorage.get() || vm.nomes; 
+			pouchDB.get().then(function(response){
+				vm.nomes = response.rows
+					.filter(function(v){
+						return v && v.doc && v.doc.nome;
+					})
+					.map(function(v){
+						return v.doc.nome;
+					})
+			});
+			console.log(vm.nomes);
+			//vm.nomes = listLocalStorage.get() || vm.nomes; 
 		}
 
 		vm.editar = function(data) {
@@ -68,12 +77,13 @@
 			});
 
 			vm.nomes = angular.copy(nome);
-			//vm.id++;
 			listLocalStorage.post(vm.nomes);
 			$scope.main.pessoa = '';
 		}
 
+
 		vm.loadData();
+		
 	}
 
 

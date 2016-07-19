@@ -27,7 +27,7 @@
 				</form>
 			</div>
 		</div>
-
+		{{main.nomes}}
 		<div class="row div col-md-6">
 			<table class="table">
 				<thead>
@@ -49,12 +49,30 @@
 			<span ng-if="!main.nomes.length">No momento não nome cadastrado!!</span>
 		</div>
 	</div>
-
-
+	<script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/pouchdb/5.4.5/pouchdb.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
 	<script src="js/app_module.js"></script>
+	<script src="js/pouchdb_run.js"></script>
 	<script src="js/app_controller.js"></script>
 	<script src="js/app_factory.js"></script>
+	<script src="js/pouchdb_factory.js"></script>
+
+	<script>
+		/*var db = new PouchDB('nomes');
+		db.put({
+		  name: 'David',
+		  age: 69
+		});*/
+		/*var db = new PouchDB('nomes');
+		db.destroy(function (err, response) {
+  if (err) {
+    return console.log(err);
+  } else {
+    // success
+  }
+});*/
+	</script>
 </body>
 </html>
