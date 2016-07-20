@@ -37,27 +37,25 @@
 			listLocalStorage.post(vm.nomes);*/
 
 			pouchDB.save(data);
-			$scope.main.pessoa = '';
+			//$scope.main.pessoa = '';
 			
 
 		}
 
 		vm.loadData = function() {
 			pouchDB.get().then(function(response){
-				vm.nomes = response.rows
-					.filter(function(v){
-						return v && v.doc && v.doc.nome;
-					})
-					.map(function(v){
-						return v.doc.nome;
-					})
+
+				response.rows.forEach(function(el){
+					vm.nomes.push(el);
+				})
 			});
+				
 			console.log(vm.nomes);
 			//vm.nomes = listLocalStorage.get() || vm.nomes; 
 		}
 
-		vm.editar = function(data) {
-			$scope.main.pessoa = angular.copy(data);
+		/*vm.editar = function(data) {
+			//$scope.main.pessoa = angular.copy(data);
 		}
 
 		vm.deletar = function(id) {
@@ -79,7 +77,7 @@
 			vm.nomes = angular.copy(nome);
 			listLocalStorage.post(vm.nomes);
 			$scope.main.pessoa = '';
-		}
+		}*/
 
 
 		vm.loadData();
