@@ -1,89 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="app">
+<html lang="pt-br" data-ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
-<body data-ng-controller="indexController as vm">
+<body>
 
-	
-	<div class="container">
-
-		<!-- <div class="row">
-			<div class="col-md-6">
-				<form name="form">
-					<div class="form-group">
-						<label for="nome">Nome</label>
-						<input type="text" class="form-control" placeholder="Digite seu nome" ng-model="main.pessoa.nome" required>
-					</div>
-		
-					<div class="form-group">
-						<label for="nome">Sobrenome</label>
-						<input type="text" class="form-control" placeholder="Digite seu sobrenome" ng-model="main.pessoa.sobrenome">
-					</div>
-					<button ng-click="main.saveData(main.pessoa)" class="btn btn-success" ng-disabled="form.$invalid">Adicionar</button>
-					<button type="submit" class="btn btn-primary" ng-click="main.atualizar(main.pessoa)">Atualizar</button>
-				</form>
-			</div>
-		</div> -->
-
-		<!-- AQUI ONDE ESTOU FAZENDO O TESTE -->
-
-
-		{{vm.nomes}}
-
-
-
-		<!-- AQUI ONDE ESTOU FAZENDO O TESTE -->
-
-
-
-		<!-- <div class="row div col-md-6">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Sobrenome</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="pessoa in main.nomes">
-						<td>{{pessoa.nome}}</td>
-						<td>{{pessoa.sobrenome}}</td>
-						<td><button class="btn btn-primary" ng-click="main.editar(pessoa)">Editar</button></td>
-						<td><button class="btn btn-danger" ng-click="main.deletar(pessoa.id)">Excluir</button></td>
-					</tr>
-				</tbody>
-			</table>
-			<span ng-if="!main.nomes.length">No momento não nome cadastrado!!</span>
-		</div> -->
+	<div style="padding:20px">
+		<div ui-view></div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/pouchdb/5.4.5/pouchdb.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+	<script src="https://cdn.jsdelivr.net/pouchdb/5.4.5/pouchdb.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
 	<script src="js/app_module.js"></script>
 	<script src="js/pouchdb_run.js"></script>
+	<script src="js/app_config.js"></script>
 	<script src="js/app_controller.js"></script>
-	<script src="js/app_factory.js"></script>
-	<script src="js/pouchdb_factory.js"></script>
-
-	<script>
-		/*var db = new PouchDB('nomes');
-		db.put({
-		  name: 'David',
-		  age: 69
-		});*/
-		/*var db = new PouchDB('nomes');
-		db.destroy(function (err, response) {
-  if (err) {
-    return console.log(err);
-  } else {
-    // success
-  }
-});*/
-	</script>
+	<script src="js/app_service.js"></script>
 </body>
 </html>

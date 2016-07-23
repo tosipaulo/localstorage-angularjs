@@ -3,7 +3,7 @@
 	angular.module('app')
 	.run(run);
 
-	function run(pouchDB) {
-		pouchDB.setDataBase('nomes');
+	function run($pouchDB) {
+		$pouchDB.setDatabase('name');
 	}
 })()

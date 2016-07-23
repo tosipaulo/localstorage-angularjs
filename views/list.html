@@ -1,0 +1,20 @@
+<button class="btn btn-primary" ui-sref="item">New Item</button>
+<br>
+<table class="table">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last NAme</th>
+			<th>Email</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="(key, value) in main.items">
+			<td>{{value.firstname}}</td>
+			<td>{{value.lastname}}</td>
+			<td>{{value.email}}</td>
+			<td><a href="" ui-sref="item({documentId: key, documentRevision: value._rev})">Edit</a> | <a href="" ng-click="main.delete(value._id, value._rev)">Delete</a></td>
+		</tr>
+	</tbody>
+</table>

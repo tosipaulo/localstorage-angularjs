@@ -1,87 +1,57 @@
-(function(){
+(function(){ 
 	'use strict'
 	
 	angular.module('app')
 	.controller('indexController', indexController);
 
 
-	function indexController($scope, $localStorage, listLocalStorage, pouchDB) {
+	function indexController($scope, $rootScope, $state, $stateParams, $pouchDB) {
 		var vm = this;
-		vm.nomes = [];
-		vm._id = vm.nomes.length || -1;
 
-	
-		/*vm.saveData = function(data) {
+		vm.items = {};
 
-			if($localStorage.message){
-				obj = $localStorage.message;
-				obj.push(data);
-			}else {
-				obj.push(data);
-				$localStorage.message = obj;
+		$pouchDB.startListening();
+
+		$rootScope.$on('$pouchDB:change', function(event, data){
+			vm.items[data.doc._id] = data.doc;
+			$scope.$apply();
+		});
+
+		$rootScope.$on('$pouchDB:delete', function(event, data){
+			delete vm.items[data.doc._id];
+			$scope.$apply();
+		});
+
+		if($stateParams.documentId) {
+			$pouchDB.get($stateParams.documentId).then(function(response) {
+				$scope.inputForm = response;
+			});
+		}
+
+		vm.save = function(firstname, lastname, email) {
+			var jsonObject = {
+				'firstname': firstname,
+				'lastname': lastname,
+				'email': email
 			}
 
-		}*/
-		vm.saveData = function(data) {
-
-			/*vm.id++;
-			data.id = vm.id;
-			if(listLocalStorage.get()){
-				vm.nomes = listLocalStorage.get();
-
-				vm.nomes.push(angular.copy(data));	
-			}else {
-				vm.nomes.push(angular.copy(data));	
+			if($stateParams.documentId) {
+				jsonDocument["_id"] = $stateParams.documentId;
+				jsonDocument["_rev"] = $stateParams.documentRevision;
 			}
 
-			listLocalStorage.post(vm.nomes);*/
-
-			pouchDB.save(data);
-			//$scope.main.pessoa = '';
-			
-
-		}
-
-		vm.loadData = function() {
-			pouchDB.get().then(function(response){
-
-				response.rows.forEach(function(el){
-					vm.nomes.push(el);
-				})
+			$pouchDB.save(jsonObject).then(function(response){
+				$state.go('list');
+			}, function(err){
+				console.log('ERROR => ' + JSON.stringify(err));
 			});
-				
-			console.log(vm.nomes);
-			//vm.nomes = listLocalStorage.get() || vm.nomes; 
 		}
 
-		/*vm.editar = function(data) {
-			//$scope.main.pessoa = angular.copy(data);
+		vm.delete = function(id, rev) {
+			$pouchDB.delete(id, rev);
 		}
 
-		vm.deletar = function(id) {
-			vm.nomes = vm.nomes.filter(function(element){ 
-				return element.id !== id;
-			})
-			vm.id++;
-			listLocalStorage.post(vm.nomes);
-		}
 
-		vm.atualizar = function(data) {
-			var nome = vm.nomes.map(function(el, i){
-				if(el.id === data.id) {
-					return data
-				}
-				return el;
-			});
-
-			vm.nomes = angular.copy(nome);
-			listLocalStorage.post(vm.nomes);
-			$scope.main.pessoa = '';
-		}*/
-
-
-		vm.loadData();
-		
 	}
 
 

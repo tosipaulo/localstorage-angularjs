@@ -1,5 +1,5 @@
 (function(){
 	'use strict'
 	
-	angular.module('app', ['ngStorage']);
+	angular.module('app', ['ngStorage', 'ui.router']);
 })()
