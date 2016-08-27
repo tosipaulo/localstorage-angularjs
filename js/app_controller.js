@@ -35,9 +35,11 @@
 				'email': email
 			}
 
+			console.log($stateParams);
+
 			if($stateParams.documentId) {
-				jsonDocument["_id"] = $stateParams.documentId;
-				jsonDocument["_rev"] = $stateParams.documentRevision;
+				jsonObject["_id"] = $stateParams.documentId;
+				jsonObject["_rev"] = $stateParams.documentRevision;
 			}
 
 			$pouchDB.save(jsonObject).then(function(response){
